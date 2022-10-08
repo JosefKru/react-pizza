@@ -1,4 +1,16 @@
+import { useState } from 'react'
+
 const Sort = () => {
+  const [isVisible, setIsVisible] = useState(false)
+  const [selected, setSelected] = useState(0)
+
+  const list = ['популярности', 'цене', 'алфавиту']
+
+  const onClickPopupList = (i) => {
+    setSelected(i)
+    setIsVisible(false)
+  }
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +27,23 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{list[selected]}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isVisible && (
+        <div className="sort__popup">
+          <ul>
+            {list.map((item, i) => (
+              <li
+                key={i}
+                className={selected === i ? 'active' : ''}
+                onClick={() => onClickPopupList(i)}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

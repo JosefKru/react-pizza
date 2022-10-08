@@ -15,6 +15,7 @@ const Categories = () => {
       <ul>
         {categories.map((value, i) => (
           <li
+            key={i} // передаю index в key, так как categories статичный массив
             onClick={() => setIndex(i)}
             className={index === i ? 'active' : ''}
           >
