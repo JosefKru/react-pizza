@@ -3,6 +3,7 @@ import PizzaBlock from './../Components/PizzaBlock/PizzaBlock'
 import Skeleton from './../Components/PizzaBlock/Skeleton'
 import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
+import '../scss/app.scss'
 
 function Home() {
   const [items, setItems] = useState([])
@@ -17,7 +18,7 @@ function Home() {
       })
   }, [])
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -30,7 +31,7 @@ function Home() {
               <PizzaBlock key={pizza.id} items={items} {...pizza} />
             ))}
       </div>
-    </>
+    </div>
   )
 }
 
