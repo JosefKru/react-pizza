@@ -1,11 +1,9 @@
 import './scss/app.scss'
 import Header from './Components/Header/Header'
-import Categories from './Components/Categories/Categories'
-import Sort from './Components/Sort/Sort'
-import PizzaBlock from './Components/PizzaBlock/PizzaBlock'
+import Home from './pages/Home'
+import NotFoundBlock from './Components/NotFoundBlock/NotFoundBlock'
 
 import { Route, Routes } from 'react-router'
-import NotFoundBlock from './Components/NotFoundBlock/NotFoundBlock'
 
 function App() {
   return (
@@ -13,10 +11,10 @@ function App() {
       <Header />
       <div className="content">
         <div className="container">
-          <NotFoundBlock />
           <Routes>
-            <Route />
-            <Route />
+            <Route path="/" element={<Home />} />
+            <Route path="" element={<Home />} />
+            <Route path="*" element={<NotFoundBlock />} />
           </Routes>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import PizzaBlock from './../Components/PizzaBlock/PizzaBlock'
 import Skeleton from './../Components/PizzaBlock/Skeleton'
+import Categories from './../Components/Categories/Categories'
+import Sort from './../Components/Sort/Sort'
 
 function Home() {
   const [items, setItems] = useState([])

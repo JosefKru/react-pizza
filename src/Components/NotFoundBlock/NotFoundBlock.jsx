@@ -3,12 +3,14 @@ import NotFound from '../../pages/NotFound'
 import styles from './NotFoundBlock.module.scss'
 
 function NotFoundBlock() {
-  console.log(styles)
   return (
-    <>
-      {/* <h1 className={styles.root}>Страница не найдена</h1> */}
-      <NotFound />
-    </>
+    <div className={styles.root}>
+      <span>&#128533;</span>
+      <h1>Ничего не найдено</h1>
+      <p className={styles.description}>
+        К сожалению данная страница отсутсвует
+      </p>
+    </div>
   )
 }
 
