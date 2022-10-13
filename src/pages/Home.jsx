@@ -4,19 +4,26 @@ import Skeleton from './../Components/PizzaBlock/Skeleton'
 import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
 import '../scss/app.scss'
+import client from './../contentful/index'
 
 function Home() {
   const [items, setItems] = useState([])
-  const [isLoadig, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     setIsLoading(true)
-    fetch('https://6342939b3f83935a78453789.mockapi.io/items')
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data)
+
+    client
+      .getEntries({
+        content_type: 'home',
+        limit: 2,
+      })
+      .then((response) => {
+        const [items] = response.items
+        setItems(items.fields.items)
         setIsLoading(false)
       })
   }, [])
+
   return (
     <div className="container">
       <div className="content__top">
@@ -25,8 +32,8 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoadig
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+        {isLoading
+          ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
           : items.map((pizza) => (
               <PizzaBlock key={pizza.id} items={items} {...pizza} />
             ))}
