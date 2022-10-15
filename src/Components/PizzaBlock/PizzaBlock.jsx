@@ -4,6 +4,7 @@ const PizzaBlock = ({ title, imageUrl, price, sizes, types }) => {
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
 
+  // console.log(props)
   const pizzaType = ['тонкое', 'традиционное']
   return (
     <div className="pizza-block-wrapper">

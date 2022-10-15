@@ -1,7 +1,12 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/img/pizza-logo.svg'
+import client from './../../contentful/index'
 
 const Header = () => {
+  useEffect(() => {
+    client.getEntries({})
+  }, [])
   return (
     <div className="header">
       <div className="container">

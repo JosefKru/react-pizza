@@ -1,7 +1,4 @@
-import { useState } from 'react'
-
-const Categories = () => {
-  const [index, setIndex] = useState(0)
+const Categories = ({ value, onClickCategory }) => {
   const categories = [
     'Все',
     'Мясные',
@@ -13,13 +10,13 @@ const Categories = () => {
   return (
     <div className="categories">
       <ul>
-        {categories.map((value, i) => (
+        {categories.map((categoryName, i) => (
           <li
             key={i} // передаю index в key, так как categories статичный массив
-            onClick={() => setIndex(i)}
-            className={index === i ? 'active' : ''}
+            onClick={(id) => onClickCategory(i)}
+            className={value === i ? 'active' : ''}
           >
-            {value}
+            {categoryName}
           </li>
         ))}
       </ul>
