@@ -4,7 +4,6 @@ const PizzaBlock = ({ title, imageUrl, price, sizes, types }) => {
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
 
-  // console.log(props)
   const pizzaType = ['тонкое', 'традиционное']
   return (
     <div className="pizza-block-wrapper">
@@ -13,7 +12,7 @@ const PizzaBlock = ({ title, imageUrl, price, sizes, types }) => {
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((type) => (
+            {/* {types.map((type) => (
               <li
                 key={type}
                 onClick={() => setActiveType(type)}
@@ -21,7 +20,7 @@ const PizzaBlock = ({ title, imageUrl, price, sizes, types }) => {
               >
                 {pizzaType[type]}
               </li>
-            ))}
+            ))} */}
           </ul>
           <ul>
             {sizes.map((size, i) => (

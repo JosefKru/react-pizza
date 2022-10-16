@@ -29,7 +29,6 @@ function Home() {
     })
   }, [categoryId, sortType])
 
-  console.log(items)
   return (
     <div className="container">
       <div className="content__top">
@@ -43,7 +42,9 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
-          : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
+          : items.map((pizza) => (
+              <PizzaBlock key={pizza.id} items={items} {...pizza} />
+            ))}
       </div>
     </div>
   )
