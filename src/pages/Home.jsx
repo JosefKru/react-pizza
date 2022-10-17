@@ -5,7 +5,7 @@ import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
 import '../scss/app.scss'
 
-function Home() {
+function Home({ searchValue }) {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [categoryId, setCategoryId] = useState(0)
@@ -27,7 +27,7 @@ function Home() {
         setIsLoading(false)
       })
     })
-  }, [categoryId, sortType])
+  }, [categoryId, sortType, searchValue])
 
   return (
     <div className="container">
@@ -42,9 +42,13 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
-          : items.map((pizza) => (
-              <PizzaBlock key={pizza.id} items={items} {...pizza} />
-            ))}
+          : items
+              .filter((obj) =>
+                obj.title.toLowerCase().includes(searchValue.toLowerCase())
+              )
+              .map((pizza) => (
+                <PizzaBlock key={pizza.id} items={items} {...pizza} />
+              ))}
       </div>
     </div>
   )
