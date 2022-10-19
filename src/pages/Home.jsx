@@ -4,11 +4,13 @@ import Skeleton from './../Components/PizzaBlock/Skeleton'
 import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
 import '../scss/app.scss'
+import Pagination from './../Components/Pagination/index'
 
 function Home({ searchValue }) {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [categoryId, setCategoryId] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
   const [sortType, setSortType] = useState({
     name: 'популярности',
     sortProperty: 'rating',
@@ -17,17 +19,18 @@ function Home({ searchValue }) {
   useEffect(() => {
     setIsLoading(true)
 
+    const category = categoryId > 0 ? `category=${categoryId}` : ''
+    const sortBy = sortType.sortProperty.replace('-', '')
+    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
     fetch(
-      `https://6342939b3f83935a78453789.mockapi.io/items?${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty.replace('-', '')}`
+      `https://6342939b3f83935a78453789.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
     ).then((response) => {
       response.json().then((arr) => {
         setItems(arr)
         setIsLoading(false)
       })
     })
-  }, [categoryId, sortType, searchValue])
+  }, [categoryId, sortType, searchValue, currentPage])
 
   return (
     <div className="container">
@@ -41,7 +44,7 @@ function Home({ searchValue }) {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoading
-          ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
+          ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
           : items
               .filter((obj) =>
                 obj.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -50,6 +53,7 @@ function Home({ searchValue }) {
                 <PizzaBlock key={pizza.id} items={items} {...pizza} />
               ))}
       </div>
+      <Pagination onChangePage={(page) => setCurrentPage(page)} />
     </div>
   )
 }

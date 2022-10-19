@@ -4,9 +4,12 @@ const Sort = ({ value, onChangeSort }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   const list = [
-    { name: 'популярности', sortProperty: 'rating' },
-    { name: 'цене', sortProperty: 'price' },
-    { name: 'алфавиту', sortProperty: 'title' },
+    { name: 'популярности (возр)', sortProperty: 'rating' },
+    { name: 'популярности (убыв)', sortProperty: '-rating' },
+    { name: 'цене (возр)', sortProperty: 'price' },
+    { name: 'цене (убыв)', sortProperty: '-price' },
+    { name: 'алфавиту (возр)', sortProperty: 'title' },
+    { name: 'алфавиту (убыв)', sortProperty: '-title' },
   ]
 
   const onClickPopupList = (obj) => {
