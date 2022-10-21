@@ -6,8 +6,6 @@ import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
 import Pagination from './../Components/Pagination/index'
 import '../scss/app.scss'
-import { useSelector, useDispatch } from 'react-redux'
-import { setCategoryId } from '../redux/slices/filterSlice'
 
 function Home() {
   const [items, setItems] = useState([])
@@ -19,15 +17,6 @@ function Home() {
     sortProperty: 'rating',
   })
   const { searchValue } = useContext(SearchContext)
-
-  const sss = useSelector((state) => state.filter.categoryId)
-  console.log(sss)
-  // console.log(categoryId)
-  // const dispatch = useDispatch()
-
-  // const onClickCategory = (id) => {
-  //   dispatch(setCategoryId(id))
-  // }
 
   useEffect(() => {
     setIsLoading(true)
