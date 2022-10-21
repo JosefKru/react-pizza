@@ -7,10 +7,19 @@ import Sort from './../Components/Sort/Sort'
 import Pagination from './../Components/Pagination/index'
 import '../scss/app.scss'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setCategoryId } from '../redux/slices/filterSlice'
+
 function Home() {
+  const categoryId = useSelector((state) => state.filter.categoryId)
+  const dispatch = useDispatch()
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
+
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [categoryId, setCategoryId] = useState(0)
+  // const [categoryId, setCategoryId] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [sortType, setSortType] = useState({
     name: 'популярности',
@@ -40,7 +49,7 @@ function Home() {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onClickCategory={(id) => setCategoryId(id)}
+          onClickCategory={(id) => onClickCategory(id)}
         />
         <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
       </div>
