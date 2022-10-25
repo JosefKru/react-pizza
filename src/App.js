@@ -1,3 +1,4 @@
+import React from 'react'
 import './scss/app.scss'
 import Header from './Components/Header/Header'
 import Home from './pages/Home'
