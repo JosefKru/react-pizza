@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setCategoryId } from '../redux/slices/filterSlice'
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice'
 import { SearchContext } from './../App'
 import PizzaBlock from './../Components/PizzaBlock/PizzaBlock'
 import Skeleton from './../Components/PizzaBlock/Skeleton'
@@ -8,21 +8,23 @@ import Categories from './../Components/Categories/Categories'
 import Sort from './../Components/Sort/Sort'
 import Pagination from './../Components/Pagination/index'
 import '../scss/app.scss'
+import axios from 'axios'
 
 function Home() {
-  const { categoryId, sortType } = useSelector((state) => state.filter)
+  const { categoryId, sortType, currentPage } = useSelector(
+    (state) => state.filter
+  )
   const dispatch = useDispatch()
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id))
   }
 
+  const onChangePage = (pageNumber) => {
+    dispatch(setCurrentPage(pageNumber))
+  }
+
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  // const [sortType, setSortType] = useState({
-  //   name: 'популярности',
-  //   sortProperty: 'rating',
-  // })
   const { searchValue } = useContext(SearchContext)
 
   useEffect(() => {
@@ -32,14 +34,14 @@ function Home() {
     const sortBy = sortType.sortProperty.replace('-', '')
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
 
-    fetch(
-      `https://6342939b3f83935a78453789.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
-    ).then((response) => {
-      response.json().then((arr) => {
-        setItems(arr)
+    axios
+      .get(
+        `https://6342939b3f83935a78453789.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
+      )
+      .then((response) => {
+        setItems(response.data)
         setIsLoading(false)
       })
-    })
   }, [categoryId, sortType, searchValue, currentPage])
 
   return (
@@ -63,7 +65,7 @@ function Home() {
                 <PizzaBlock key={pizza.id} items={items} {...pizza} />
               ))}
       </div>
-      <Pagination onChangePage={(page) => setCurrentPage(page)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   )
 }
